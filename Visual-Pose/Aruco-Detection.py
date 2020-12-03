@@ -53,27 +53,7 @@ while (True):                                                   #
              
         y = (corners[i-1][0][0][1] + corners[i-1][0][1][1] + 
              corners[i-1][0][2][1] + corners[i-1][0][3][1]) /4
-        
-        #coordonnee pixel filtré
-        
-        xf , yf = np.round(kalman.filter_pixel((x,y),t)[:2]).astype(np.int)
-        
-                                                                
-        
-        
-        #position relative x y en pixel
-        dx= x-320                                                      #
-        dy= 240-y                                                      #
-        z= drone.NavData["altitude"][3] -243                           #
-        radius=F_radius(dz)                                            #
-                                                                       #
-        cv2.line(frame,(320,240),(int(x),int(y)),(255,0,0),2)          #
-        direction= action(dx,dy)  
-                                                                       #
-        # afficher dx et dy                                            #
-        cv2.putText(frame, " dx : " + str(dx) + ", dy : "+str(dy) +
-                  " dz : "+ str(int(dz)),(0,64), font, 1,
-                                          (0,255,0),2,cv2.LINE_AA)
+
         cv2.putText(frame,direction[0] +" and  "+ direction[1] ,
                          (0,100), font, 1, (0,255,0),2,cv2.LINE_AA)
         cv2.circle(frame, centre, radius, (255,0,0), 2)
@@ -81,11 +61,7 @@ while (True):                                                   #
         # no ids si aucun marcker trouvé                               #
         cv2.putText(frame, "No Ids", (0,64), font, 1, (0,255,0),2,cv2.LINE_AA)
                                                                        #
-    ###################################################################
-
-    #######--------affichage video---------########
-    cv2.arrowedLine(frame,(160,240),(640-160,240),(0,255,0),2)
-    cv2.arrowedLine(frame,(320,480-120),(320,120),(0,0,255),2,)
+    ##################################################################
     
     # afficher la frame
     cv2.imshow('frame',frame)
